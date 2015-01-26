@@ -7,10 +7,12 @@ var port = process.env.PORT || 3000;
 var connect = function () {
     var options = {server: {socketOptions: {keepAlive: 1}}};
     mongoose.connect('mongodb://localhost/brill', options);
-}();
+};
 
 mongoose.connection.on('error', console.log);
 mongoose.connection.on('disconnected', connect);
+
+connect();
 
 var Schema = mongoose.Schema;
 var IdeaSchema = new Schema({
