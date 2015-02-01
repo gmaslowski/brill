@@ -17,5 +17,6 @@ dependencies {
 test {
     testLogging {
         exceptionFormat = 'full'
+        events = ['standard_out', 'standard_error', 'passed', 'skipped', 'failed', 'standardOut', 'standardError']
     }
 }
