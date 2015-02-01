@@ -2,11 +2,16 @@
 var express = require('express');
 var app = express();
 
+var bodyParser = require('body-parser');
+
 // mongoose
 var mongoose = require('mongoose');
 var mongodb = require('./app/config/mongodb.js')
 
 var port = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 // Connect to mongodb
 var connect = function () {

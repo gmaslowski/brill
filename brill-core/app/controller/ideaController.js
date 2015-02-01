@@ -23,14 +23,21 @@ module.exports = function (app) {
     });
 
     app.post('/api/ideas', function (request, response) {
+        console.log(request.body);
+
+        if (!(request.body.hasOwnProperty('description'))) {
+            response.statusCode = 400;
+            return response.send('Error 400: Post syntax incorrect.');
+        }
+
         var createdIdea = new Idea({
-            description: request.body
+            description: request.body.description
         });
 
         createdIdea.save(function (err) {
             if (err) console.log('Error on save!')
         });
 
-        response.send();
+        response.send(createdIdea);
     });
 };
