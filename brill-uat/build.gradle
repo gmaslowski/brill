@@ -8,8 +8,10 @@ repositories {
 
 dependencies {
     def spockVersion = '0.7-groovy-2.0'
+    def httpBuilderVersion = '0.7.1'
 
     compile group: 'org.spockframework', name: 'spock-core', version: spockVersion
+    compile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: httpBuilderVersion
 }
 
 test {
