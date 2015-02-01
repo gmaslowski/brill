@@ -1,12 +1,17 @@
+// express
 var express = require('express');
+var app = express();
+
+// mongoose
 var mongoose = require('mongoose');
+var mongodb = require('./app/config/mongodb.js')
 
 var port = process.env.PORT || 3000;
 
 // Connect to mongodb
 var connect = function () {
     var options = {server: {socketOptions: {keepAlive: 1}}};
-    mongoose.connect('mongodb://localhost/brill', options, function (err, res) {
+    mongoose.connect(mongodb.url, options, function (err, res) {
         if (err) {
             console.log('ERROR connecting to MongoDB.. ' + err);
         } else {
@@ -20,14 +25,7 @@ mongoose.connection.on('disconnected', connect);
 
 connect();
 
-var Schema = mongoose.Schema;
-var IdeaSchema = new Schema({
-    description: String
-});
-
-var Idea = mongoose.model('ideas', IdeaSchema);
-
-var app = express();
+require('./app/routes.js')(app);
 
 app.listen(port, function () {
     console.log("Node app is running at localhost:" + port);

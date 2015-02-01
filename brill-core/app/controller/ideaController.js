@@ -1,31 +1,36 @@
-app.get('/api/ideas', function (request, response) {
-    return Idea.find(function (err, products) {
-        if (!err) {
-            return response.send(products);
-        } else {
-            return console.log(err);
-        }
-    });
-});
+var Idea = require('../model/idea.js');
 
-app.get('/api/ideas/:id', function (request, response) {
-    return Idea.findById(request.params.id, function (err, product) {
-        if (!err) {
-            return response.send(product);
-        } else {
-            return console.log(err);
-        }
-    });
-});
+module.exports = function (app) {
 
-app.post('/api/ideas', function (request, response) {
-    var createdIdea = new Idea({
-        description: request.body
+    app.get('/api/ideas', function (request, response) {
+        return Idea.find(function (err, products) {
+            if (!err) {
+                return response.send(products);
+            } else {
+                return console.log(err);
+            }
+        });
     });
 
-    createdIdea.save(function (err) {
-        if (err) console.log('Error on save!')
+    app.get('/api/ideas/:id', function (request, response) {
+        return Idea.findById(request.params.id, function (err, product) {
+            if (!err) {
+                return response.send(product);
+            } else {
+                return console.log(err);
+            }
+        });
     });
 
-    response.send();
-});
+    app.post('/api/ideas', function (request, response) {
+        var createdIdea = new Idea({
+            description: request.body
+        });
+
+        createdIdea.save(function (err) {
+            if (err) console.log('Error on save!')
+        });
+
+        response.send();
+    });
+};
